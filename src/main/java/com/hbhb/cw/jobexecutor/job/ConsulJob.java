@@ -22,7 +22,7 @@ public class ConsulJob {
     private ConsulService consulService;
 
     @XxlJob(value = "consulDeregisterService")
-    public ReturnT<String> consulDeregisterService() {
+    public ReturnT<String> consulDeregisterService(String s) throws Exception {
         log.info("开始执行【清除consul无效服务】任务...");
         consulService.deregisterCriticalService();
         log.info("【清除consul无效服务】任务执行完毕！");
