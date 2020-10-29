@@ -52,6 +52,11 @@ management:
       exposure:
         include: '*'
 
+springdoc:
+  title: 任务执行器API
+  version: 1.0
+  description: 执行定时任务
+
 beetlsql: sqlManager
 beetlsql.sqlManager:
   ds: dataSource
