@@ -6,7 +6,7 @@ Configuration:
       - name: log.path
         value: /app/logs
       - name: log.level
-        value: debug
+        value: info
       - name: log.pattern
         value: "%d{yyyy-MM-dd HH:mm:ss.SSS}  %highlight{%5p} --- %clr{${sys:PID}}{magenta} [%15.15t] %clr{%-40.40c{1.}}{cyan} : %m%n%xwEx"
       - name: log.file.pattern
