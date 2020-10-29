@@ -1,0 +1,49 @@
+server:
+  port: 8884
+
+spring:
+  application:
+    name: @project.artifactId@-@env@
+  cloud:
+    consul:
+      host: 172.17.0.1
+      discovery:
+        instance-id: ${spring.application.name}-${server.port}-${spring.cloud.client.ip-address}
+        service-name: ${spring.application.name}
+        health-check-url: http://172.17.0.1:10013/actuator/health
+
+feign:
+  client:
+    config:
+      default:
+        # 指定Feign客户端连接提供者的超时时限（取决于网络环境）
+        connectTimeout: 5000
+        # 指定Feign客户端从请求到获取到提供者给出的响应的超时时限（取决于业务逻辑运算时间）
+        readTimeout: 5000
+  # 启用压缩（从该实例到接口提供方）
+  compression:
+    request:
+      enabled: true
+      min-request-size: 512
+    response:
+      enabled: true
+      useGzipDecoder: true
+
+# 开启健康检查
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+xxl:
+  job:
+    admin:
+      addresses: https://job.iishoni.com/xxl-job-admin
+    executor:
+      appname: ${spring.application.name}
+      ip: 112.13.201.108
+      port: 10013
+      logpath: /app/logs
+      logretentiondays: -1
+    accessToken:
