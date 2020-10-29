@@ -2,8 +2,6 @@ server:
   port: 8883
 
 spring:
-  profiles:
-    active: @env@
   application:
     name: @project.artifactId@
   cloud:
