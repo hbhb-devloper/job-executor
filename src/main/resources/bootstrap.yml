@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: @project.artifactId@-@env@
+    name: @project.artifactId@
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
     url: jdbc:mysql://mariadb:3306/cw_sys?useUnicode=true&characterEncoding=utf8&useTimezone=true&serverTimezone=CTT&useSSL=false&allowMultiQueries=true
