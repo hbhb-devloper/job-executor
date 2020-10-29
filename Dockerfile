@@ -2,6 +2,8 @@ FROM openjdk:8-jdk-alpine as builder
 WORKDIR application
 ADD ./target/*.jar app.jar
 RUN java -Djarmode=layertools -jar app.jar extract
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositories
+RUN apk add --update curl && rm -rf /var/cache/apk/*
 
 FROM openjdk:8-jdk-alpine
 WORKDIR application
