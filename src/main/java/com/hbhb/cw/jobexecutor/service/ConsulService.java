@@ -2,6 +2,7 @@ package com.hbhb.cw.jobexecutor.service;
 
 import com.hbhb.core.utils.JsonUtil;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
@@ -20,15 +21,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ConsulService {
 
-    private static final String LIST_CRITICAL_URL = "https://consul.yeexun.com.cn/v1/health/state/critical";
-    private static final String DEREGISTER_SERVICE_URL = "https://consul.yeexun.com.cn/v1/agent/service/deregister/";
+    @Value("${consul.list-critical-url}")
+    private String listCriticalUrl;
+    @Value("${consul.deregister-service-url}")
+    private String deregisterServiceUrl;
 
     /**
      * 清除consul无效服务
      */
     public void deregisterCriticalService() {
         // 先查询无效服务serviceId
-        String[] cmd1 = {"curl", "-X", "GET", LIST_CRITICAL_URL};
+        String[] cmd1 = {"curl", "-X", "GET", listCriticalUrl};
         List<String> serviceIds = new ArrayList<>();
         List<String> checkIds = JsonUtil.findByKeyFromArray(execCurl(cmd1), "CheckID");
         if (!CollectionUtils.isEmpty(checkIds)) {
@@ -39,7 +42,7 @@ public class ConsulService {
         if (!CollectionUtils.isEmpty(serviceIds)) {
             log.info("开始清除consul无效服务：{}", serviceIds);
             serviceIds.forEach(serviceId -> {
-                String[] cmd2 = {"curl", "-X", "PUT", DEREGISTER_SERVICE_URL + serviceId};
+                String[] cmd2 = {"curl", "-X", "PUT", deregisterServiceUrl + serviceId};
                 execCurl(cmd2);
             });
             log.info("consul无效服务全部清除完毕！");
