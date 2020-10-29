@@ -56,6 +56,10 @@ springdoc:
   title: 任务执行器API
   version: 1.0
   description: 执行定时任务
+  writer-with-default-pretty-printer: true
+  swagger-ui:
+    disable-swagger-default-url: true
+  server-url: https://gateway.zhcw.yeexun.com.cn/job
 
 beetlsql: sqlManager
 beetlsql.sqlManager:
