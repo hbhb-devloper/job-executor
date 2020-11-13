@@ -4,13 +4,14 @@ package com.hbhb.cw.jobexecutor.job;
 import com.hbhb.cw.jobexecutor.rpc.RelocationWarpApiExp;
 import com.xxl.job.core.biz.model.ReturnT;
 import com.xxl.job.core.handler.annotation.XxlJob;
-
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
 
-import lombok.extern.slf4j.Slf4j;
-
+/**
+ * @author wangxiaogang
+ */
 @Component
 @Slf4j
 public class RelocationWarnJob {
