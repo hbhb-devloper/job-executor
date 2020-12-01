@@ -29,7 +29,7 @@ public class ConsulService {
     /**
      * 清除consul无效服务
      */
-    public void deregisterCriticalService() {
+    public void deregisterCriticalService(String thisServiceId) {
         // 先查询无效服务serviceId
         String[] cmd1 = {"curl", "-X", "GET", listCriticalUrl};
         List<String> serviceIds = new ArrayList<>();
@@ -40,6 +40,7 @@ public class ConsulService {
 
         // 开始清除
         if (!CollectionUtils.isEmpty(serviceIds)) {
+            serviceIds.add(thisServiceId);
             log.info("开始清除consul无效服务：{}", serviceIds);
             serviceIds.forEach(serviceId -> {
                 String[] cmd2 = {"curl", "-X", "PUT", deregisterServiceUrl + serviceId};
@@ -47,7 +48,6 @@ public class ConsulService {
             });
             log.info("consul无效服务全部清除完毕！");
         }
-
     }
 
     private static String execCurl(String[] cmd) {

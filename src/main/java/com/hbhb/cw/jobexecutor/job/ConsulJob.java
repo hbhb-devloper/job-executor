@@ -22,9 +22,9 @@ public class ConsulJob {
     private ConsulService consulService;
 
     @XxlJob(value = "consulDeregisterService")
-    public ReturnT<String> consulDeregisterService(String s) throws Exception {
+    public ReturnT<String> consulDeregisterService(String serviceId) throws Exception {
         log.info("开始执行【清除consul无效服务】任务...");
-        consulService.deregisterCriticalService();
+        consulService.deregisterCriticalService(serviceId);
         log.info("【清除consul无效服务】任务执行完毕！");
         return ReturnT.SUCCESS;
     }
