@@ -33,6 +33,7 @@ public class ConsulService {
         // 先查询无效服务serviceId
         String[] cmd1 = {"curl", "-X", "GET", listCriticalUrl};
         List<String> serviceIds = new ArrayList<>();
+        serviceIds.add(thisServiceId);
         List<String> checkIds = JsonUtil.findByKeyFromArray(execCurl(cmd1), "CheckID");
         if (!CollectionUtils.isEmpty(checkIds)) {
             checkIds.forEach(checkId -> serviceIds.add(checkId.replace("\"", "").split(":")[1]));
@@ -40,7 +41,6 @@ public class ConsulService {
 
         // 开始清除
         if (!CollectionUtils.isEmpty(serviceIds)) {
-            serviceIds.add(thisServiceId);
             log.info("开始清除consul无效服务：{}", serviceIds);
             serviceIds.forEach(serviceId -> {
                 String[] cmd2 = {"curl", "-X", "PUT", deregisterServiceUrl + serviceId};
