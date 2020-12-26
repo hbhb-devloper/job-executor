@@ -52,5 +52,6 @@ host:
 
 provider:
   relocation-manage: relocation-manage-prd
+  publicity-manage: publicity-manage-prd
 
 feign-url:
