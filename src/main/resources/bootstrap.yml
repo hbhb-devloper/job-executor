@@ -8,11 +8,11 @@ spring:
     name: @project.artifactId@
   cloud:
     consul:
-      host: 172.17.0.1
+      host: ${host.docker0-ip}
       discovery:
         instance-id: ${spring.application.name}-${server.port}-${spring.cloud.client.ip-address}
         service-name: ${spring.application.name}
-        health-check-url: http://172.17.0.1:10013/actuator/health
+        health-check-url: http://${host.docker0-ip}:${host.map-port}/actuator/health
       config:
         format: yaml
         prefix: config/@project.artifactId@
@@ -42,6 +42,13 @@ management:
     web:
       exposure:
         include: '*'
+
+# 宿主机相关配置
+host:
+  # docker0的ip地址
+  docker0-ip: 172.17.0.1
+  # 线上环境映射的端口
+  map-port: 10003
 
 provider:
   relocation-manage: relocation-manage-prd
