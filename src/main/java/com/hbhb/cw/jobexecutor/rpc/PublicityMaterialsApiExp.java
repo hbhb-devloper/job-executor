@@ -6,6 +6,6 @@ import org.springframework.cloud.openfeign.FeignClient;
 /**
  * @author wangxiaogang
  */
-@FeignClient(value = "${provider.publicity-manage}", url = "${feign-url}",contextId = "MaterialsApi" ,path = "/budget-year")
+@FeignClient(value = "${provider.publicity-manage}", url = "${feign-url}",contextId = "MaterialsApi" ,path = "/materials/notice")
 public interface PublicityMaterialsApiExp extends MaterialsApi {
 }
